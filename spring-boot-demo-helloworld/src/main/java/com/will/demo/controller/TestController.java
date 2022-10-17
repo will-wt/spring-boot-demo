@@ -1,6 +1,6 @@
-package com.example.demo.controller;
+package com.will.demo.controller;
 
-import com.example.demo.domain.Result;
+import com.will.demo.domain.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.will.demo.domain;
 
 /**
  * @author Will.WT
