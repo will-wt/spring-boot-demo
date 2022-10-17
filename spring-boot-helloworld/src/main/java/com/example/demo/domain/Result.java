@@ -1,5 +1,8 @@
 package com.example.demo.domain;
 
+/**
+ * @author Will.WT
+ */
 public class Result<T> {
 
     private int code;
