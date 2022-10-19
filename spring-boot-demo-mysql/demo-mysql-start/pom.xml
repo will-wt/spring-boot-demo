@@ -8,14 +8,13 @@
         <artifactId>spring-boot-demo-mysql</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-
-    <artifactId>demo-start</artifactId>
+    <artifactId>demo-mysql-start</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.will.demo</groupId>
-            <artifactId>demo-dal</artifactId>
+            <artifactId>demo-mysql-dal</artifactId>
         </dependency>
 
     </dependencies>

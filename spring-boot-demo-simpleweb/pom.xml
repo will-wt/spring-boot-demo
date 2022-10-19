@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.will.demo</groupId>
-    <artifactId>spring-boot-demo-mysql</artifactId>
+    <artifactId>spring-boot-demo-simpleweb</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <java.version>1.8</java.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -18,8 +18,9 @@
     </properties>
 
     <modules>
-        <module>demo-mysql-dal</module>
-        <module>demo-mysql-start</module>
+        <module>demo-simpleweb-start</module>
+        <module>demo-simpleweb-dal</module>
+        <module>demo-simpleweb-biz</module>
     </modules>
 
     <dependencyManagement>
@@ -27,17 +28,24 @@
             <!-- all project modules -->
             <dependency>
                 <groupId>com.will.demo</groupId>
-                <artifactId>demo-mysql-dal</artifactId>
+                <artifactId>demo-simpleweb-dal</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
-
             <dependency>
                 <groupId>com.will.demo</groupId>
-                <artifactId>demo-mysql-start</artifactId>
+                <artifactId>demo-simpleweb-biz</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.will.demo</groupId>
+                <artifactId>demo-simpleweb-start</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
 
+            <!-- SpringBoot
+                默认日志框架：LogBack+SLF4j
+            -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -51,6 +59,13 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>8.0.21</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.20</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -72,5 +87,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
 </project>
