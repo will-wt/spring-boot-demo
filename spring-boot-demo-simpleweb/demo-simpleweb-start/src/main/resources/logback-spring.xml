@@ -5,8 +5,10 @@ scanPeriod：设置监测配置文件是否有修改的时间间隔,如果没有
 debug：当此属性设置为true时,将打印出logback内部日志信息,实时查看logback运行状态。默认值为false。
 -->
 <configuration scan="true" scanPeriod="30 seconds" debug="false">
-    <!-- 定义日志的根目录为项目的根目录,前面不要加"/",加了会默认认为是根目录,提示 classnotfond -->
-    <property name="LOG_PATH" value="./logs"/>
+
+    <!-- logback.xml加载顺序早于application.properties，需要通过springProperty标签来获取应用变量 -->
+    <springProperty scope="context" name="LOG_HOME" source="log.basedir"/>
+
     <!-- 日志输出格式：
             %d表示日期时间,
             %thread表示线程名,
@@ -33,7 +35,7 @@ debug：当此属性设置为true时,将打印出logback内部日志信息,实�
     </appender>
 
     <appender name="appAppenderSync" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/app.log</file>
+        <file>${LOG_HOME}/app.log</file>
         <!-- 日志输出格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${LOG_PATTERN}</pattern>
@@ -59,7 +61,7 @@ debug：当此属性设置为true时,将打印出logback内部日志信息,实�
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--滚动时产生的文件的存放位置及文件名称 %d{yyyy-MM-dd}：按天进行日志滚动
                 %i：当文件大小超过maxFileSize时,按照i进行文件滚动-->
-            <fileNamePattern>${LOG_PATH}/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
             <!--可选，控制保留的归档文件的最大数量，超出数量就删除旧文件。
                 假设设置每天滚动，且maxHistory是15,则只保存最近15天的文件,删除之前的旧文件。
@@ -88,7 +90,7 @@ debug：当此属性设置为true时,将打印出logback内部日志信息,实�
 
 
     <appender name="errorAppenderSync" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/error.log</file>
+        <file>${LOG_HOME}/error.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${LOG_PATTERN}</pattern>
             <charset>UTF-8</charset>
@@ -97,7 +99,7 @@ debug：当此属性设置为true时,将打印出logback内部日志信息,实�
             <level>ERROR</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>14</maxHistory>
             <totalSizeCap>10GB</totalSizeCap>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
