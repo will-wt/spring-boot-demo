@@ -11,7 +11,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(){
-        return "success";
+        return "OK";
     }
 
     @GetMapping("/check_health")
