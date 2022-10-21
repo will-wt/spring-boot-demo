@@ -1,7 +1,7 @@
-#spring-boot-demo-logback
+# spring-boot-demo-logback
 > SpringBoot默认使用logback作为日志系统，已引入logback的依赖包。
 
-##pom.xml
+## pom.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -59,7 +59,7 @@
 </project>
 ```
 
-##logback
+## logback
 Spring Boot官方推荐优先使用带有-spring 的文件名作为你的日志配置（如使用logback-spring.xml，而不是logback.xml），
 命名为logback-spring.xml的日志配置文件，将xml放至 src/main/resource下面。
 > 也可以使用自定义的名称，比如logback-config.xml，但需要在application.properties文件中使用logging.config=classpath:logback-config.xml指定即可。

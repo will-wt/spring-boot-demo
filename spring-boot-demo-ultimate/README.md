@@ -1,7 +1,7 @@
-#spring-boot-demo-ultimate
+# spring-boot-demo-ultimate
 > 一个简洁、功能较齐全的web工程，包含多模块工程结构，集成了logback、lombok、mybatis、druid、mysql等功能。
 
-##pom.xml
+## pom.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -139,5 +139,5 @@
 ```
 
 
-##SQL
+## SQL
 SQLite https://www.sqlite.net.cn/tutorial/2.html
