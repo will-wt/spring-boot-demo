@@ -64,11 +64,14 @@ Spring Boot官方推荐优先使用带有-spring 的文件名作为你的日志�
 命名为logback-spring.xml的日志配置文件，将xml放至 src/main/resource下面。
 > 也可以使用自定义的名称，比如logback-config.xml，但需要在application.properties文件中使用logging.config=classpath:logback-config.xml指定即可。
 
-为了在高并发下保持稳定性，提升日志写入性能，做了如下设置：
-1. 异步输出日志，不阻塞队列
-2. 控制单个日志文件的大小，防止在日志滚动时导致IO阻塞（日志滚动时删除大文件会比较慢）。maxFileSize=256MB比较合适，在线上高并发场景下验证过了。
-3. 控制日志总量，防止耗尽硬盘。设置totalSizeCap/maxHistory，cleanHistoryOnStart=true清理历史文件。
 
+为了在高并发下保持稳定性，提升日志写入性能，做了如下设置：
+> 1. 异步输出日志，不阻塞队列
+> 2. 控制单个日志文件的大小，防止在日志滚动时导致IO阻塞（日志滚动时删除大文件会比较慢）。maxFileSize=256MB比较合适，在线上高并发场景下验证过了。
+> 3. 控制日志总量，防止耗尽硬盘。设置totalSizeCap/maxHistory，cleanHistoryOnStart=true清理历史文件。
+
+
+### logback-spring.xml示例
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
