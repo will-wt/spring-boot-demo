@@ -16,9 +16,9 @@
 	<modules>
 		<module>spring-boot-demo-helloworld</module>
 		<module>spring-boot-demo-logback</module>
-		<module>spring-boot-demo-mysql</module>
+		<module>spring-boot-demo-mybatis</module>
+		<module>spring-boot-demo-mybatis-groovy</module>
 		<module>spring-boot-demo-ultimate</module>
-        <module>spring-boot-demo-mybatis</module>
     </modules>
 
 </project>

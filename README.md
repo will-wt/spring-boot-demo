@@ -1,2 +1,2 @@
 # spring-boot-demo
-> demo project with spring-boot
+> spring-boot demo projects

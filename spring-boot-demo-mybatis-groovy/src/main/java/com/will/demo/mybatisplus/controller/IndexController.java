@@ -1,4 +1,4 @@
-package com.will.demo.start.controller;
+package com.will.demo.mybatisplus.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(){
-        return "success";
+        return "OK";
     }
 
     @GetMapping("/check_health")
