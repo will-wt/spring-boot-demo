@@ -1,5 +1,7 @@
 package com.will.demo.dataobject;
 
+import java.util.Date;
+
 /**
  * @author Will.WT
  * @date 2022/10/21 23:02
@@ -7,6 +9,8 @@ package com.will.demo.dataobject;
 public class UserDO {
 
     private Long id;
+    private Date gmtCreate;
+    private Date gmtModified;
     private String name;
     private Integer age;
     private String address;
@@ -17,6 +21,22 @@ public class UserDO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     public String getName() {
@@ -47,6 +67,8 @@ public class UserDO {
     public String toString() {
         return "UserDO{" +
                 "id=" + id +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", address='" + address + '\'' +
