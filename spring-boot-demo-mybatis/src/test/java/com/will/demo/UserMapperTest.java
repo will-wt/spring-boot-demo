@@ -28,7 +28,6 @@ public class UserMapperTest extends BaseSpringBootTest {
     public void testQueryUser(){
         List<UserDO> userDOs = userMapper.queryUser(0, 10);
         Assert.assertNotNull(userDOs);
-        Assert.assertEquals(userDOs.size(), 2);
     }
 
 }
