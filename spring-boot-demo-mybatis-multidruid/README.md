@@ -200,13 +200,11 @@ spring.datasource.druid.stat-view-servlet.deny=
 
 
 ## mybatis
-# 自定义POJO的包名，然后在mapper中可以使用类名代替全限定名
-mybatis.type-aliases-package=com.will.demo.multidruid.dataobject
 # 下划线转驼峰
 mybatis.configuration.map-underscore-to-camel-case=true
 ```
 
-## 数据源1
+## 数据源1 - 用户数据
 > user数据源，负责用户相关的数据。
 
 ```java
@@ -217,28 +215,37 @@ public class UserDataSourceConfig {
     // mybatis mapper.xml 加载地址
     //private static final String MAPPER_LOCATION = "classpath:sqlmap/user/*-mapper.xml";
 
+    @Resource(name = "userMybatisConfiguration")
+    private org.apache.ibatis.session.Configuration mybatisConfiguration;
 
-    //    @Primary
+
+    @Primary
     @Bean(name = "userDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.druid.user")
     public DataSource dataSource(){
         return DruidDataSourceBuilder.create().build();
     }
 
+    @Primary
     @Bean(name = "userSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(@Qualifier("userDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
+        // 注入独立的mybatis configuration，解决多数据源时驼峰映射未生效问题
+        bean.setConfiguration(mybatisConfiguration);
+
         // 如果使用xml方式配置mapper，则需要指定mapper.xml的加载地址
         //bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResource(MAPPER_LOCATION));
         return bean.getObject();
     }
 
+    @Primary
     @Bean(name = "userTransactionManager")
     public DataSourceTransactionManager transactionManager(@Qualifier("userDataSource") DataSource dataSource){
         return new DataSourceTransactionManager(dataSource);
     }
 
+    @Primary
     @Bean(name = "userSqlSessionTemplate")
     public SqlSessionTemplate sqlSessionTemplate(@Qualifier("userSqlSessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
@@ -247,7 +254,7 @@ public class UserDataSourceConfig {
 }
 ```
 
-## 数据源2
+## 数据源2 - 交易数据
 > trade数据源，负责交易相关的数据。
 
 ```java
@@ -258,30 +265,67 @@ public class TradeDataSourceConfig {
     // mybatis mapper.xml 加载地址
     //private static final String MAPPER_LOCATION = "classpath:sqlmap/trace/*-mapper.xml";
 
-//    @Primary
+    @Resource(name = "tradeMybatisConfiguration")
+    private org.apache.ibatis.session.Configuration mybatisConfiguration;
+
+    @Primary
     @Bean("tradeDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.druid.trade")
     public DataSource dataSource(){
         return DruidDataSourceBuilder.create().build();
     }
 
+    @Primary
     @Bean(name = "tradeSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(@Qualifier("tradeDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
+        // 注入独立的mybatis configuration，解决多数据源时驼峰映射未生效问题
+        bean.setConfiguration(mybatisConfiguration);
+
         // 如果使用xml方式配置mapper，则需要指定mapper.xml的加载地址
         //bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResource(MAPPER_LOCATION));
         return bean.getObject();
     }
 
+    @Primary
     @Bean(name = "tradeTransactionManager")
     public DataSourceTransactionManager transactionManager(@Qualifier("tradeDataSource") DataSource dataSource){
         return new DataSourceTransactionManager(dataSource);
     }
 
+    @Primary
     @Bean(name = "tradeSqlSessionTemplate")
     public SqlSessionTemplate sqlSessionTemplate(@Qualifier("tradeSqlSessionFactory") SqlSessionFactory sqlSessionFactory){
         return new SqlSessionTemplate(sqlSessionFactory);
+    }
+
+}
+```
+
+## mybatis配置
+> 多数据源时解决：
+> 1. MapUnderscoreToCamelCase 驼峰映射未生效问题
+> 2. 先加载的数据源找不到数据库schema问题
+
+```java
+@Configuration
+public class MybatisConfig {
+
+    /**
+     * 多数据源时，需要配置独立的mybatis.configuration，否则会出现mybatis.configuration.environment
+     * 被覆盖，导致前面的数据源找不到数据库schema
+     */
+    @Bean(name = "userMybatisConfiguration")
+    @ConfigurationProperties(prefix = "mybatis.configuration")
+    public org.apache.ibatis.session.Configuration userMybatisConfiguration(){
+        return new org.apache.ibatis.session.Configuration();
+    }
+
+    @Bean(name = "tradeMybatisConfiguration")
+    @ConfigurationProperties(prefix = "mybatis.configuration")
+    public org.apache.ibatis.session.Configuration tradeMybatisConfiguration(){
+        return new org.apache.ibatis.session.Configuration();
     }
 
 }
