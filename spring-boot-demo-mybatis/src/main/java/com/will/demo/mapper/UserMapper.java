@@ -1,6 +1,7 @@
 package com.will.demo.mapper;
 
 import com.will.demo.dataobject.UserDO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -29,5 +30,9 @@ public interface UserMapper {
      * @return
      */
     List<UserDO> queryUser(@Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    @Insert("insert into user_info(gmt_create, gmt_modified, name, age, address) " +
+            "values(now(), now(), #{name}, #{age}, #{address})")
+    long addUser(UserDO userDO);
 
 }
