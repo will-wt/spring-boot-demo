@@ -25,6 +25,10 @@
             <groupId>com.will.demo</groupId>
             <artifactId>demo-ultimate-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.will.demo</groupId>
+            <artifactId>demo-ultimate-api</artifactId>
+        </dependency>
 
     </dependencies>
 
