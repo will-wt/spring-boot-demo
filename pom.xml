@@ -20,6 +20,7 @@
 		<module>spring-boot-demo-mybatis-druid</module>
 		<module>spring-boot-demo-mybatis-multidruid</module>
 		<module>spring-boot-demo-mybatis-groovy</module>
+		<module>spring-boot-demo-multi-evn</module>
 		<module>spring-boot-demo-ultimate</module>
     </modules>
 
